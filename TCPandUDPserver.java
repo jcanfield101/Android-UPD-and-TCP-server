@@ -147,36 +147,4 @@
 
 	    asyncUdpServer.execute(onMessageListener);
 	  }
-	 	/**
-	 * Start UDP server.
-	 * @param Start UDP server.
-	 */
-	@SuppressLint("NewApi")
-	private void ConnectUDPReceiver(){
-		asyncUdpServer = new AsyncTask<OnMessageListener, Void, Void>() { 
-	        @Override
-	        protected Void doInBackground(OnMessageListener... listener) {   
-	        	byte[] lMsg = new byte[4096];
-	            DatagramPacket dp = new DatagramPacket(lMsg, lMsg.length);
-	            DatagramSocket ds = null;
-	            try{
-	            	ds = new DatagramSocket(portServer);
-	                while(serverActive){
-	                   	ds.receive(dp);
-	                    String msg = new String(lMsg, 0, dp.getLength());
-	                    if(listener[0] != null)
-	                    	listener[0].onRawMessageReceived(msg);
-	                }
-	            } catch (Exception e){
-	            	onSystemConnectionStatusListener.OnSystemError("Unable to start UDP server");
-	              e.printStackTrace();
-	            } finally {
-	                if (ds != null){ ds.close();}
-	            }
-	            return null;
-	        }
-	    };
-
-	    asyncUdpServer.execute(onMessageListener);
-	  }
-	  
+	
